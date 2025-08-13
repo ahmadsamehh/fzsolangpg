@@ -37,11 +37,11 @@ jobs:
       - name: Build docker image
         # Use direct docker build for clarity and tagging
         # Use the Dockerfile with embedded entrypoint
-        run: docker build -t zsolangpg-githubbuildtest -f Dockerfile .
+        run: docker build -t fzsolangpg -f Dockerfile .
 
       - name: Run docker container in detached mode
         # Publish both port 4444 (backend) and 3000 (frontend)
-        run: docker run --runtime=sysbox-runc -d -p 4444:4444 -p 3000:3000 --name zsolangpg_backend zsolangpg-githubbuildtest
+        run: docker run --runtime=sysbox-runc -d -p 4444:4444 -p 3000:3000 --name zsolangpg_backend fzsolangpg
 
       - name: Download wait-for-it.sh
         run: wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && chmod +x wait-for-it.sh
