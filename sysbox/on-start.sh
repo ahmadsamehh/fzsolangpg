@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Start dockerd in background with debug logging
 echo "Starting Docker daemon..."
 dockerd --debug > /var/log/dockerd.log 2>&1 &
@@ -53,10 +54,6 @@ done
 echo "Starting application services..."
 cd /app
 ./start-services.sh
-
-
-
-
 
 
 
