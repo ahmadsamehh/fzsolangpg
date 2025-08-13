@@ -1,12 +1,12 @@
 import { store } from ".";
-import { defaultCode } from "./initstate";
+import { defaultCode, defaultCodeSalah } from "./initstate";
 
 function initState() {
   store.send({
     type: "addFile",
     basePath: "explorer.items.src",
     name: "main.sol",
-    content: defaultCode,
+    content: defaultCodeSalah,
   });
 
   store.send({ type: "setCurrentPath", path: "explorer.items.src.items['main.sol']" });
