@@ -1,25 +1,3 @@
-# #!/bin/bash
-
-# # Start backend service with correct frontend path
-# /app/target/release/backend --frontend_folder /app/packages/frontend/.next/static --port 4444 &
-# BACKEND_PID=$!
-
-# # Start frontend service
-# cd /app/packages/frontend
-# npm run start &
-# FRONTEND_PID=$!
-
-# # Wait for either process to exit
-# wait -n $BACKEND_PID $FRONTEND_PID
-# EXIT_CODE=$?
-
-# # Clean up remaining processes
-# kill $BACKEND_PID 2>/dev/null
-# kill $FRONTEND_PID 2>/dev/null
-
-# exit $EXIT_CODE
-
-
 #!/bin/bash
 
 # Start backend service
@@ -47,3 +25,26 @@ wait $BACKEND_PID 2>/dev/null
 wait $FRONTEND_PID 2>/dev/null
 
 exit $EXIT_CODE
+
+# #!/bin/bash
+
+# # Start backend service with correct frontend path
+# /app/target/release/backend --frontend_folder /app/packages/frontend/.next/static --port 4444 &
+# BACKEND_PID=$!
+
+# # Start frontend service
+# cd /app/packages/frontend
+# npm run start &
+# FRONTEND_PID=$!
+
+# # Wait for either process to exit
+# wait -n $BACKEND_PID $FRONTEND_PID
+# EXIT_CODE=$?
+
+# # Clean up remaining processes
+# kill $BACKEND_PID 2>/dev/null
+# kill $FRONTEND_PID 2>/dev/null
+
+# exit $EXIT_CODE
+
+
