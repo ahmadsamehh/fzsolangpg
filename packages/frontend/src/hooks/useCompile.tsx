@@ -16,41 +16,43 @@ function useCompile() {
     const compileFile = async (): Promise<ICompilationResult> => {
         console.log('[tur] [compileFile] code:', code)
         if (!code) {
-            const err  ="Error: No Source Code Found"
+            const err = "Error: No Source Code Found"
             logger.error(err);
-            return  {
+            return {
                 data: null,
                 err
             }
         }
-    
+
         logger.info("Compiling contract...");
-    
+
         const opts: RequestInit = {
             method: "POST",
             mode: "cors",
             credentials: "same-origin",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-            source: code,
+                source: code,
             }),
         };
-    
-        const { result, success, message } = await fetch(`${Network_Url.BACKEND_SERVER}/compile`, opts).then(async (res) => {
+
+        //const { result, success, message } = await fetch(`${Network_Url.BACKEND_SERVER}/compile`, opts).then(async (res) => {
+        const { result, success, message } = await fetch("/compile", opts).then(async (res) => {
+
             const result = await res.json().catch(() => null);
             console.log('compilation result', result);
             if (!result) {
-            return {
-                success: false,
-                message: res.statusText,
-                result: null,
-            };
+                return {
+                    success: false,
+                    message: res.statusText,
+                    result: null,
+                };
             }
-    
+
             return {
-            success: res.ok,
-            message: res.statusText,
-            result: result,
+                success: res.ok,
+                message: res.statusText,
+                result: result,
             };
         });
 
@@ -58,17 +60,17 @@ function useCompile() {
 
         if (success) {
             if (result.type === "SUCCESS") {
-            const wasm = result.payload.wasm;
-            store.send({ type: "updateCurrentWasm", path: selected || '', buff: wasm });
-            logger.info("Contract compiled successfully!");
-            return {
-                data: wasm,
-                err: null
-            };
+                const wasm = result.payload.wasm;
+                store.send({ type: "updateCurrentWasm", path: selected || '', buff: wasm });
+                logger.info("Contract compiled successfully!");
+                return {
+                    data: wasm,
+                    err: null
+                };
             } else {
-            const message = result.payload.compile_stderr;
-            logger.error(message);
-            err = message
+                const message = result.payload.compile_stderr;
+                logger.error(message);
+                err = message
             }
         } else {
             logger.error(message);
